@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@400;700&display=swap');
+
+.inventory {
+  width: 1096px;
+  min-height: 645px;
+  font-family: 'Inria Sans', sans-serif;
+  margin: 0 auto;
+}
+
+.products-section {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.products-section h3 {
+  margin-bottom: 10px;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+  align-items: center;
+}
+
+.add-btn, .delete-btn {
+  background-color: #3F7F5A;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn.disabled, .add-btn.disabled, .filter.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.filter {
+  padding: 8px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #dee2e6;
+}
+
+th {
+  font-weight: bold;
+  color: #333;
+}
+
+td input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pagination button {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.add-modal {
+  width: 500px;
+  height: 802px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.add-modal h2 {
+  margin-bottom: 20px;
+}
+
+.image-upload {
+  border: 1px dashed #ccc;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.image-upload img {
+  max-height: 100px;
+  margin-top: 10px;
+}
+
+.add-modal label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.add-modal input, .add-modal select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.discard {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add, .confirm {
+  background-color: #3F7F5A;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-modal {
+  width: 400px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.delete-modal h2 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.delete-modal p {
+  margin-bottom: 20px;
+}
+
+.cancel {
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.restock-btn,
+.history-btn {
+  background-color: #3F7F5A;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.restock-btn:hover,
+.history-btn:hover {
+  background-color: #356b4b;
+}
+
+.add-modal .qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+  justify-content: center;
+}
+
+.add-modal .qty-controls button {
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  background-color: #ffffff;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.add-modal .qty-display {
+  min-width: 48px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.add-modal table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.add-modal th,
+.add-modal td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+.add-modal thead th {
+  font-weight: 700;
+  color: #333;
+}
+
+.add-modal .modal-buttons,
+.delete-modal .modal-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.add-modal .modal-buttons .discard {
+  flex: 1;
+}
+
+.add-modal .modal-buttons .add {
+  flex: 1;
+}
+
+
+@media (max-width: 1200px) {
+  .inventory {
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 0 auto;
+  }
+
+  .add-modal {
+    width: 90%;
+    height: auto;
+    max-height: 90vh;
+  }
+}
+
+td {
+  word-wrap: break-word;
+  max-width: 220px;
+}
+
+.add-modal td[colspan] {
+  text-align: center;
+  color: #666;
+  padding: 16px 0;
+}
