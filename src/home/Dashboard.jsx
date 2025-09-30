@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './Dashboard.css';
 import { Home, Package, BarChart3, Settings, LogOut, Menu, X } from 'lucide-react';
 import TindaWiseLogo from '../assets/TindaWiseLogoRectangle.png';
+import './Inventory'
+import Inventory from './Inventory';
 
 const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState('inventory');
@@ -90,7 +92,7 @@ const DashboardPage = () => (
 const InventoryPage = () => (
   <div className="page-card">
     <h2 className="page-title">Inventory</h2>
-    <p className="page-text">Inventory content will be displayed here</p>
+    <Inventory />
   </div>
 );
 
