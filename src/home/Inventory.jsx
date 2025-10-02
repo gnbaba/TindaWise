@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ProductContext } from '../context/ProductManagement';
 import './Inventory.css';
 
 const categories = [
@@ -7,7 +8,7 @@ const categories = [
 ];
 
 const Inventory = () => {
-  const [products, setProducts] = useState([]);
+  const { products, addProduct, deleteProducts, restockProduct } = useContext(ProductContext);
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showRestockModal, setShowRestockModal] = useState(false);
@@ -17,8 +18,8 @@ const Inventory = () => {
   const [restockQty, setRestockQty] = useState(0);
   const [filterCategory, setFilterCategory] = useState('');
   const [newProduct, setNewProduct] = useState({
-    name: '', category: '', buyingPrice: '', quantity: '',
-    threshold: '10', image: null, history: [] 
+    name: '', category: '', buyingPrice: '', sellingPrice: '', quantity: '',
+    threshold: '10', image: null
   });
 
   const handleInputChange = (e) => {
@@ -44,12 +45,12 @@ const Inventory = () => {
     }
   };
 
-  const addProduct = () => {
-    setProducts([...products, { ...newProduct, id: Date.now() }]);
+  const handleAddProduct = () => {
+    addProduct(newProduct);
     setShowAddModal(false);
     setNewProduct({
-      name: '', category: '', buyingPrice: '', quantity: '',
-      threshold: '10', image: null, history: []
+      name: '', category: '', buyingPrice: '', sellingPrice: '', quantity: '',
+      threshold: '10', image: null
     });
   };
 
@@ -59,10 +60,15 @@ const Inventory = () => {
     );
   };
 
-  const deleteSelected = () => {
-    setProducts(products.filter((p) => !selectedProducts.includes(p.id)));
+  const handleDeleteSelected = () => {
+    deleteProducts(selectedProducts);
     setSelectedProducts([]);
     setShowDeleteModal(false);
+  };
+
+  const handleRestock = () => {
+    restockProduct(selectedProduct.id, restockQty);
+    setShowRestockModal(false);
   };
 
   const getAvailability = (quantity, threshold) => {
@@ -79,7 +85,6 @@ const Inventory = () => {
 
   return (
     <div className="inventory">
-      {/* Products Table */}
       <div className="products-section">
         <h3>Products</h3>
         <div className="actions">
@@ -107,7 +112,8 @@ const Inventory = () => {
             <tr>
               <th></th>
               <th>Products</th>
-              <th>Price</th>
+              <th>Buying Price</th>
+              <th>Selling Price</th>
               <th>Quantity</th>
               <th>Threshold</th>
               <th>Restock</th>
@@ -129,6 +135,7 @@ const Inventory = () => {
                   </td>
                   <td>{product.name}</td>
                   <td>₱{product.buyingPrice}</td>
+                  <td>₱{product.sellingPrice}</td>
                   <td>{product.quantity}</td>
                   <td>{product.threshold}</td>
                   <td>
@@ -159,7 +166,7 @@ const Inventory = () => {
               );
             })}
             {filteredProducts.length === 0 && (
-              <tr><td colSpan="8">No products added yet.</td></tr>
+              <tr><td colSpan="9">No products added yet.</td></tr>
             )}
           </tbody>
         </table>
@@ -189,13 +196,15 @@ const Inventory = () => {
             </select>
             <label>Buying Price</label>
             <input name="buyingPrice" value={newProduct.buyingPrice} onChange={handleInputChange} />
+            <label>Selling Price</label>
+            <input name="sellingPrice" value={newProduct.sellingPrice} onChange={handleInputChange} />
             <label>Quantity</label>
             <input name="quantity" value={newProduct.quantity} onChange={handleInputChange} />
             <label>Threshold Value</label>
             <input name="threshold" value={newProduct.threshold} onChange={handleInputChange} />
             <div className="modal-buttons">
               <button className="discard" onClick={() => setShowAddModal(false)}>Discard</button>
-              <button className="add" onClick={addProduct}>Add Product</button>
+              <button className="add" onClick={handleAddProduct}>Add Product</button>
             </div>
           </div>
         </div>
@@ -209,7 +218,7 @@ const Inventory = () => {
             <p>Are you sure to delete the selected products?</p>
             <div className="modal-buttons">
               <button className="cancel" onClick={() => setShowDeleteModal(false)}>Cancel</button>
-              <button className="confirm" onClick={deleteSelected}>Confirm</button>
+              <button className="confirm" onClick={handleDeleteSelected}>Confirm</button>
             </div>
           </div>
         </div>
@@ -228,20 +237,7 @@ const Inventory = () => {
             </div>
             <div className="modal-buttons">
               <button className="discard" onClick={() => setShowRestockModal(false)}>Cancel</button>
-              <button className="add" onClick={() => {
-                const now = new Date().toLocaleDateString();
-                setProducts(products.map(p => {
-                  if (p.id === selectedProduct.id) {
-                    return {
-                      ...p,
-                      quantity: parseInt(p.quantity) + restockQty,
-                      history: [...p.history, { date: now, qty: restockQty }]
-                    };
-                  }
-                  return p;
-                }));
-                setShowRestockModal(false);
-              }}>Save</button>
+              <button className="add" onClick={handleRestock}>Save</button>
             </div>
           </div>
         </div>
@@ -258,7 +254,7 @@ const Inventory = () => {
                 <tr><th>Date Restock</th><th>Quantity</th></tr>
               </thead>
               <tbody>
-                {selectedProduct.history.length > 0 ? (
+                {selectedProduct.history && selectedProduct.history.length > 0 ? (
                   selectedProduct.history.map((h, i) => (
                     <tr key={i}><td>{h.date}</td><td>{h.qty}</td></tr>
                   ))
