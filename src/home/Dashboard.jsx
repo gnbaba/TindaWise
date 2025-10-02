@@ -4,6 +4,7 @@ import { Home, Package, BarChart3, Settings, LogOut, Menu, X } from 'lucide-reac
 import TindaWiseLogo from '../assets/TindaWiseLogoRectangle.png';
 import './Inventory'
 import Inventory from './Inventory';
+import Dashboardpage from './Dashboardpage';
 
 const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState('inventory');
@@ -85,7 +86,7 @@ const Dashboard = () => {
 const DashboardPage = () => (
   <div className="page-card">
     <h2 className="page-title">Dashboard</h2>
-    <p className="page-text">Dashboard content will be displayed here</p>
+    <Dashboardpage />
   </div>
 );
 
