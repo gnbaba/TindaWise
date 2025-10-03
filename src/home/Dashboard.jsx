@@ -5,6 +5,7 @@ import TindaWiseLogo from '../assets/TindaWiseLogoRectangle.png';
 import './Inventory'
 import Inventory from './Inventory';
 import Dashboardpage from './Dashboardpage';
+import Reports from './Reports';
 
 const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState('inventory');
@@ -100,7 +101,7 @@ const InventoryPage = () => (
 const ReportsPage = () => (
   <div className="page-card">
     <h2 className="page-title">Reports</h2>
-    <p className="page-text">Reports content will be displayed here</p>
+    <Reports />
   </div>
 );
 

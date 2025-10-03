@@ -33,6 +33,7 @@ export const ProductProvider = ({ children }) => {
     const newProduct = {
       ...product,
       id: Date.now(),
+      soldQuantity: 0, // Initialize soldQuantity
       history: []
     };
     setProducts([...products, newProduct]);
@@ -72,13 +73,14 @@ export const ProductProvider = ({ children }) => {
   };
 
   const sellProducts = (cartItems) => {
-    // Decrease product quantities
+    // Decrease product quantities and increase soldQuantity
     const updatedProducts = products.map(product => {
       const cartItem = cartItems.find(item => item.id === product.id);
       if (cartItem) {
         return {
           ...product,
-          quantity: parseInt(product.quantity) - cartItem.quantity
+          quantity: parseInt(product.quantity) - cartItem.quantity,
+          soldQuantity: (parseInt(product.soldQuantity || 0) + cartItem.quantity) // Track sold quantity
         };
       }
       return product;
@@ -97,6 +99,7 @@ export const ProductProvider = ({ children }) => {
     <ProductContext.Provider value={{
       products,
       transactions,
+      salesHistory: transactions,
       addProduct,
       deleteProducts,
       updateProduct,

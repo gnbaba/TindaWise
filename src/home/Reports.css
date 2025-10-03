@@ -1,0 +1,282 @@
+@import url('https://fonts.googleapis.com/css2?family=Inria+Sans:wght@300;400;700&display=swap');
+
+.overview-dashboard {
+  padding: 20px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.dashboard-layout {
+  display: flex;
+  gap: 20px;
+}
+
+.left-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.right-column {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.overview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.overview-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.overview-cards-row2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.overview-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.card-label {
+  font-size: 14px;
+  color: #666;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 20px 0;
+}
+
+.chart-card {
+  width: 100%;
+}
+
+.best-product-card {
+  width: 100%;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead th {
+  text-align: left;
+  padding: 12px 8px;
+  background-color: #f8f8f8;
+  border-bottom: 2px solid #e5e7eb;
+  font-weight: 600;
+  color: #555;
+  font-size: 13px;
+}
+
+.data-table tbody td {
+  padding: 12px 8px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 14px;
+  color: #333;
+}
+
+.data-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+.increase-text {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.low-stock-card {
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+.stock-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.stock-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background-color: #f9fafb;
+  border-radius: 8px;
+}
+
+.stock-item-image {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.stock-item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder-image {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e5e7eb;
+  font-size: 28px;
+}
+
+.stock-item-info {
+  flex: 1;
+}
+
+.stock-item-name {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.stock-item-qty {
+  color: #666;
+  font-size: 12px;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-badge.low {
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+.no-stock-message {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+@media (max-width: 1200px) {
+  .dashboard-layout {
+    flex-direction: column;
+  }
+
+  .right-column {
+    width: 100%;
+  }
+
+  .low-stock-card {
+    position: relative;
+    top: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .overview-dashboard {
+    padding: 15px;
+  }
+
+  .overview-cards {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .overview-cards-row2 {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .overview-card {
+    padding: 15px;
+  }
+
+  .card-value {
+    font-size: 20px;
+  }
+
+  .card-label {
+    font-size: 12px;
+  }
+
+  .dashboard-layout {
+    gap: 15px;
+  }
+
+  .left-column {
+    gap: 15px;
+  }
+
+  .card {
+    padding: 15px;
+  }
+
+  .data-table thead th,
+  .data-table tbody td {
+    padding: 10px 6px;
+    font-size: 12px;
+  }
+
+  .stock-item-image {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-value {
+    font-size: 18px;
+  }
+
+  .data-table {
+    font-size: 11px;
+  }
+
+  .data-table thead th,
+  .data-table tbody td {
+    padding: 8px 4px;
+  }
+}
