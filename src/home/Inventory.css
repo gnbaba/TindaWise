@@ -257,6 +257,14 @@ td input[type="checkbox"] {
   flex: 1;
 }
 
+.add-modal .qty-input {
+  width: 80px;
+  text-align: center;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
 
 @media (max-width: 1200px) {
   .inventory {

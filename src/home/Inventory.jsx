@@ -230,9 +230,16 @@ const Inventory = () => {
           <div className="add-modal">
             <h2>Restock Product</h2>
             <p>Product: <strong>{selectedProduct.name}</strong></p>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', margin: '20px 0' }}>
+            <label>Restock Quantity</label>
+            <div className="qty-controls">
               <button onClick={() => setRestockQty(q => Math.max(0, q - 1))}>-</button>
-              <span>{restockQty}</span>
+              <input 
+                type="number" 
+                value={restockQty} 
+                onChange={(e) => setRestockQty(Math.max(0, parseInt(e.target.value) || 0))}
+                className="qty-input"
+                min="0"
+              />
               <button onClick={() => setRestockQty(q => q + 1)}>+</button>
             </div>
             <div className="modal-buttons">

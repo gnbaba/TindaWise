@@ -14,10 +14,13 @@ const Reports = () => {
     sum + (sale.total || 0), 0
   ) || 0;
   
-  const monthlyProfit = products.reduce((sum, p) => {
-    const profit = (parseFloat(p.sellingPrice || 0) - parseFloat(p.buyingPrice || 0)) * parseInt(p.quantity || 0);
-    return sum + profit;
+  const totalProfit = products.reduce((sum, p) => {
+  const profitPerUnit = parseFloat(p.sellingPrice || 0) - parseFloat(p.buyingPrice || 0);
+  const profit = profitPerUnit * parseInt(p.soldQuantity || 0);
+  return sum + profit;
   }, 0);
+
+  const monthlyProfit = totalProfit;
 
   const salesToday = salesHistory?.filter(sale => {
   const today = new Date();
@@ -28,7 +31,7 @@ const Reports = () => {
          today.getFullYear() === saleDate.getFullYear();
 }).reduce((sum, sale) => sum + sale.total, 0) || 0;
 
-  const yearlyProfit = monthlyProfit * 12;
+  const yearlyProfit = totalProfit;
 
   const bestSellingProducts = [...products]
     .map(product => ({
