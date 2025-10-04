@@ -1,5 +1,5 @@
 :root {
-  color-scheme: light; /* Hints the browser to use light mode for native elements */
+  color-scheme: light;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Inria+Sans&display=swap');
@@ -21,7 +21,7 @@
 }
 
 .logo-img {
-  max-width: 300px; /* Adjust based on your logo size */
+  max-width: 300px;
   height: auto;
 }
 
@@ -70,12 +70,12 @@ input {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  background-color: #ffffff; /* Explicit white background */
-  color: #000000; /* Explicit dark text for input values */
+  background-color: #ffffff;
+  color: #000000;
 }
 
 input::placeholder {
-  color: #666666; /* Gray for placeholders */
+  color: #666666;
 }
 
 .register-button {
@@ -91,7 +91,7 @@ input::placeholder {
   transition: background-color 0.3s ease;
 }
 
-.register-button:hover{
+.register-button:hover {
   background-color: #366d4f;
 }
 
@@ -122,6 +122,17 @@ input::placeholder {
 .login-link a {
   color: #3F7F5A;
   text-decoration: none;
+}
+
+/* Error Message - NEW */
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  font-size: 0.9rem;
+  text-align: left;
 }
 
 /* Tablet responsiveness */
@@ -176,5 +187,10 @@ input::placeholder {
 
   button, input {
     font-size: 0.9rem;
+  }
+
+  .error-message {
+    font-size: 0.85rem;
+    padding: 10px;
   }
 }

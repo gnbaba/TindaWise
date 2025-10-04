@@ -1,0 +1,419 @@
+.settings-container {
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.settings-header h2 {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+}
+
+.edit-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.edit-btn:hover {
+  background-color: #f8f8f8;
+}
+
+.settings-content {
+  display: flex;
+  gap: 40px;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.settings-left {
+  flex: 2;
+}
+
+.settings-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.settings-left h3 {
+  font-size: 18px;
+  color: #888;
+  margin: 0 0 20px 0;
+  font-weight: 500;
+}
+
+.profile-section h4 {
+  font-size: 16px;
+  color: #333;
+  margin: 0 0 20px 0;
+  font-weight: 600;
+}
+
+.profile-field {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.profile-field:last-child {
+  border-bottom: none;
+}
+
+.profile-field label {
+  color: #888;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.profile-field span {
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.field-note {
+  display: block;
+  color: #999;
+  font-size: 12px;
+  font-style: italic;
+  margin-top: 4px;
+}
+
+.profile-picture-section {
+  position: relative;
+}
+
+.profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px dashed #ddd;
+  padding: 5px;
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+
+.edit-modal {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.edit-modal h2 {
+  margin: 0 0 30px 0;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.image-upload-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.upload-placeholder {
+  text-align: center;
+}
+
+.upload-placeholder p {
+  margin: 0 0 10px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.browse-btn,
+.change-image-btn {
+  display: inline-block;
+  padding: 8px 20px;
+  background-color: #3F7F5A;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.browse-btn:hover,
+.change-image-btn:hover {
+  background-color: #2d5f42;
+}
+
+.change-image-btn {
+  margin-top: 10px;
+}
+
+.preview-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #3F7F5A;
+}
+
+.form-group small {
+  color: #888;
+  font-size: 12px;
+}
+
+
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  justify-content: flex-end;
+}
+
+.discard-btn,
+.save-btn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.discard-btn {
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.discard-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.save-btn {
+  background-color: #3F7F5A;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #2d5f42;
+}
+
+
+.error-message {
+  background-color: #ffebee;
+  color: #c62828;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
+
+
+@media (max-width: 1024px) {
+  .settings-content {
+    gap: 30px;
+    padding: 25px;
+  }
+
+  .profile-picture {
+    width: 130px;
+    height: 130px;
+  }
+
+  .edit-modal {
+    padding: 30px;
+    max-width: 500px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .settings-container {
+    padding: 15px;
+  }
+
+  .settings-header {
+    margin-bottom: 20px;
+  }
+
+  .settings-header h2 {
+    font-size: 20px;
+  }
+
+  .edit-btn {
+    padding: 6px 15px;
+    font-size: 13px;
+  }
+
+  .settings-content {
+    flex-direction: column-reverse;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .settings-left,
+  .settings-right {
+    flex: 1;
+    width: 100%;
+  }
+
+  .settings-right {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profile-picture {
+    width: 120px;
+    height: 120px;
+  }
+
+  .profile-field {
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px 0;
+  }
+
+  .profile-field label {
+    font-size: 13px;
+  }
+
+  .profile-field span {
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .edit-modal {
+    padding: 25px 20px;
+    max-width: 100%;
+    margin: 0 10px;
+  }
+
+  .edit-modal h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .discard-btn,
+  .save-btn {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .preview-image {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .settings-header h2 {
+    font-size: 18px;
+  }
+
+  .settings-content {
+    padding: 15px;
+  }
+
+  .profile-picture {
+    width: 100px;
+    height: 100px;
+  }
+
+  .edit-modal {
+    padding: 20px 15px;
+  }
+
+  .form-group input {
+    padding: 10px;
+    font-size: 13px;
+  }
+
+  .image-upload-section {
+    padding: 15px;
+  }
+
+  .preview-image {
+    width: 80px;
+    height: 80px;
+  }
+}
