@@ -1,22 +1,37 @@
-import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import React, { useState, useContext } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import { UserContext } from '../context/UserManagement';
 import './Login.css';
 import logo from "../assets/TindaWiseFull.png"
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { login } = useContext(UserContext);
+  
   const [values, setValues] = useState({
     email: '',
     password: ''
   });
+  
+  const [error, setError] = useState('');
 
   const handleChanges = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+    setError(''); 
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    // Placeholder for backend integration (e.g., API call with values.email and values.password)
-    console.log('Login form submitted with:', values);
+    e.preventDefault(); 
+    // Call login from context
+    const result = login(values.email, values.password);
+    if (result.success) {
+      // Login successful, navigate to home
+      navigate('/home');
+    } else {
+      // Show error message
+      setError(result.message);
+    }
+    // For backend replace above with API call
   };
 
   return (
@@ -26,10 +41,11 @@ const Login = () => {
       </div>
       <div className="form-section">
         <div className="form-box">
-          
           <h2>Log in to your account</h2>
           <p>Welcome back!</p>
-
+          
+          {error && <div className="error-message">{error}</div>}
+          
           <form onSubmit={handleSubmit}>
             <label htmlFor="email">Email</label>
             <input
@@ -63,11 +79,13 @@ const Login = () => {
             
             <button type="submit" className="login-button">Log in</button>
           </form>
+          
           <button className="google-button">
             <img src="https://www.gstatic.com/images/branding/product/1x/gsa_64dp.png" alt="Google" className="google-icon" />
             Log in with Google
           </button>
-          <p className="signup-link">Don't have an account? <Link to="/register">Sign up</Link></p> 
+          
+          <p className="signup-link">Don't have an account? <Link to="/register">Sign up</Link></p>
         </div>
       </div>
     </div>
