@@ -210,7 +210,33 @@ const Dashboardpage = () => {
                   <td>
                     <div className="qty-control">
                       <button onClick={() => removeFromCart(item.id)}>−</button>
-                      <span>{item.quantity}</span>
+                      <input 
+                        type="number" 
+                        value={item.quantity}
+                        onChange={(e) => {
+                          const newQty = parseInt(e.target.value) || 0;
+                          const availableQty = parseInt(products.find(p => p.id === item.id)?.quantity || 0);
+                          const cartItem = cart.find(ci => ci.id === item.id);
+                          const currentInCart = cartItem ? cartItem.quantity : 0;
+                          const maxAllowed = availableQty + currentInCart;
+                          
+                          if (newQty > 0 && newQty <= maxAllowed) {
+                            setCart(cart.map(ci =>
+                              ci.id === item.id ? { ...ci, quantity: newQty } : ci
+                            ));
+                          } else if (newQty === 0) {
+                            setCart(cart.filter(ci => ci.id !== item.id));
+                          }
+                        }}
+                        min="1"
+                        max={parseInt(products.find(p => p.id === item.id)?.quantity || 0) + item.quantity}
+                      />
+                      <button 
+                        onClick={() => addToCart(products.find(p => p.id === item.id))}
+                        disabled={getAvailableQuantity(item.id) === 0}
+                      >
+                        +
+                      </button>
                     </div>
                   </td>
                   <td>₱ {(item.sellingPrice * item.quantity).toFixed(2)}</td>

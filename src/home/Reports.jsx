@@ -6,9 +6,13 @@ import './Reports.css';
 const Reports = () => {
   const { products, salesHistory } = useContext(ProductContext);
 
-  const totalPurchaseCost = products.reduce((sum, p) => 
-    sum + (parseFloat(p.buyingPrice || 0) * parseInt(p.quantity || 0)), 0
-  );
+  const totalPurchaseCost = products.reduce((sum, p) => {
+  const initialQty = parseInt(p.quantity || 0);
+  const soldQty = parseInt(p.soldQuantity || 0);
+  const totalQtyPurchased = initialQty + soldQty;
+  
+  return sum + (parseFloat(p.buyingPrice || 0) * totalQtyPurchased);
+  }, 0);
   
   const totalSales = salesHistory?.reduce((sum, sale) => 
     sum + (sale.total || 0), 0
