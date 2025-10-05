@@ -33,7 +33,7 @@ export const ProductProvider = ({ children }) => {
     const newProduct = {
       ...product,
       id: Date.now(),
-      soldQuantity: 0, // Initialize soldQuantity
+      soldQuantity: 0,
       history: []
     };
     setProducts([...products, newProduct]);
@@ -44,20 +44,33 @@ export const ProductProvider = ({ children }) => {
   };
 
   const updateProduct = (productId, updates) => {
-    setProducts(products.map(p => 
+    setProducts(products.map(p =>
       p.id === productId ? { ...p, ...updates } : p
     ));
   };
 
-  const restockProduct = (productId, quantity) => {
+  const restockProduct = (productId, quantity, buyingPrice, sellingPrice) => {
     const now = new Date().toLocaleDateString();
+    
     setProducts(products.map(p => {
       if (p.id === productId) {
-        return {
+        // Update product with new quantity and optionally new prices
+        const updatedProduct = {
           ...p,
           quantity: parseInt(p.quantity) + quantity,
-          history: [...p.history, { date: now, qty: quantity }]
+          buyingPrice: buyingPrice,  // Use new price or keep old
+          sellingPrice: sellingPrice, // Use new price or keep old
+          history: [
+            ...p.history, 
+            { 
+              date: now, 
+              qty: quantity,
+              buyingPrice: buyingPrice,
+              sellingPrice: sellingPrice
+            }
+          ]
         };
+        return updatedProduct;
       }
       return p;
     }));
@@ -80,7 +93,7 @@ export const ProductProvider = ({ children }) => {
         return {
           ...product,
           quantity: parseInt(product.quantity) - cartItem.quantity,
-          soldQuantity: (parseInt(product.soldQuantity || 0) + cartItem.quantity) // Track sold quantity
+          soldQuantity: (parseInt(product.soldQuantity || 0) + cartItem.quantity)
         };
       }
       return product;

@@ -95,7 +95,7 @@ td input[type="checkbox"] {
 
 .add-modal {
   width: 500px;
-  height: 802px;
+  max-height: 90vh;
   background-color: #ffffff;
   border-radius: 8px;
   padding: 20px;
@@ -124,15 +124,26 @@ td input[type="checkbox"] {
 .add-modal label {
   display: block;
   margin-bottom: 5px;
+  margin-top: 10px;
   font-weight: bold;
 }
 
 .add-modal input, .add-modal select {
   width: 100%;
   padding: 8px;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   border: 1px solid #dee2e6;
   border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.price-note {
+  display: block;
+  color: #666;
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-top: -8px;
+  margin-bottom: 10px;
 }
 
 .modal-buttons {
@@ -204,7 +215,7 @@ td input[type="checkbox"] {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin: 20px 0;
+  margin: 10px 0 20px 0;
   justify-content: center;
 }
 
@@ -218,29 +229,59 @@ td input[type="checkbox"] {
   font-size: 1rem;
 }
 
+.add-modal .qty-controls button:hover {
+  background-color: #f8f9fa;
+}
+
 .add-modal .qty-display {
   min-width: 48px;
   text-align: center;
   font-weight: 600;
 }
 
-.add-modal table {
+.add-modal .qty-input {
+  width: 80px;
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-bottom: 0;
+}
+
+/* History Modal Specific Styles */
+.history-modal {
+  width: 700px;
+  max-width: 90%;
+}
+
+.history-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
-.add-modal th,
-.add-modal td {
-  padding: 8px;
+.history-table th,
+.history-table td {
+  padding: 12px 8px;
   text-align: left;
   border-bottom: 1px solid #eee;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
-.add-modal thead th {
+.history-table thead th {
   font-weight: 700;
   color: #333;
+  background-color: #f8f9fa;
+}
+
+.history-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.history-table td[colspan] {
+  text-align: center;
+  color: #666;
+  padding: 20px;
 }
 
 .add-modal .modal-buttons,
@@ -257,15 +298,7 @@ td input[type="checkbox"] {
   flex: 1;
 }
 
-.add-modal .qty-input {
-  width: 80px;
-  text-align: center;
-  padding: 5px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-
+/* Responsive Design */
 @media (max-width: 1200px) {
   .inventory {
     width: 100%;
@@ -276,18 +309,26 @@ td input[type="checkbox"] {
 
   .add-modal {
     width: 90%;
-    height: auto;
     max-height: 90vh;
+  }
+
+  .history-modal {
+    width: 90%;
+  }
+}
+
+@media (max-width: 768px) {
+  .history-table {
+    font-size: 0.85rem;
+  }
+
+  .history-table th,
+  .history-table td {
+    padding: 8px 4px;
   }
 }
 
 td {
   word-wrap: break-word;
   max-width: 220px;
-}
-
-.add-modal td[colspan] {
-  text-align: center;
-  color: #666;
-  padding: 16px 0;
 }
