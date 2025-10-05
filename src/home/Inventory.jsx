@@ -15,7 +15,11 @@ const Inventory = () => {
   const [showHistoryModal, setShowHistoryModal] = useState(false);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [restockQty, setRestockQty] = useState(0);
+  const [restockData, setRestockData] = useState({
+    quantity: 0,
+    buyingPrice: '',
+    sellingPrice: ''
+  });
   const [filterCategory, setFilterCategory] = useState('');
   const [newProduct, setNewProduct] = useState({
     name: '', category: '', buyingPrice: '', sellingPrice: '', quantity: '',
@@ -25,6 +29,11 @@ const Inventory = () => {
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewProduct({ ...newProduct, [name]: value });
+  };
+
+  const handleRestockInputChange = (e) => {
+    const { name, value } = e.target;
+    setRestockData({ ...restockData, [name]: value });
   };
 
   const handleImageChange = (e) => {
@@ -67,8 +76,23 @@ const Inventory = () => {
   };
 
   const handleRestock = () => {
-    restockProduct(selectedProduct.id, restockQty);
+    const quantity = parseInt(restockData.quantity);
+    const buyingPrice = restockData.buyingPrice ? parseFloat(restockData.buyingPrice) : parseFloat(selectedProduct.buyingPrice);
+    const sellingPrice = restockData.sellingPrice ? parseFloat(restockData.sellingPrice) : parseFloat(selectedProduct.sellingPrice);
+    
+    restockProduct(selectedProduct.id, quantity, buyingPrice, sellingPrice);
     setShowRestockModal(false);
+    setRestockData({ quantity: 0, buyingPrice: '', sellingPrice: '' });
+  };
+
+  const openRestockModal = (product) => {
+    setSelectedProduct(product);
+    setRestockData({
+      quantity: 0,
+      buyingPrice: '',
+      sellingPrice: ''
+    });
+    setShowRestockModal(true);
   };
 
   const getAvailability = (quantity, threshold) => {
@@ -141,11 +165,7 @@ const Inventory = () => {
                   <td>
                     <button
                       className="restock-btn"
-                      onClick={() => {
-                        setSelectedProduct(product);
-                        setRestockQty(0);
-                        setShowRestockModal(true);
-                      }}
+                      onClick={() => openRestockModal(product)}
                     >
                       Restock
                     </button>
@@ -230,20 +250,48 @@ const Inventory = () => {
           <div className="add-modal">
             <h2>Restock Product</h2>
             <p>Product: <strong>{selectedProduct.name}</strong></p>
+            
             <label>Restock Quantity</label>
             <div className="qty-controls">
-              <button onClick={() => setRestockQty(q => Math.max(0, q - 1))}>-</button>
+              <button onClick={() => setRestockData(prev => ({ ...prev, quantity: Math.max(0, prev.quantity - 1) }))}>-</button>
               <input 
                 type="number" 
-                value={restockQty} 
-                onChange={(e) => setRestockQty(Math.max(0, parseInt(e.target.value) || 0))}
+                name="quantity"
+                value={restockData.quantity} 
+                onChange={(e) => setRestockData({ ...restockData, quantity: Math.max(0, parseInt(e.target.value) || 0) })}
                 className="qty-input"
                 min="0"
               />
-              <button onClick={() => setRestockQty(q => q + 1)}>+</button>
+              <button onClick={() => setRestockData(prev => ({ ...prev, quantity: prev.quantity + 1 }))}>+</button>
             </div>
+
+            <label>Buying Price (Optional)</label>
+            <input 
+              type="number"
+              name="buyingPrice"
+              placeholder={`Current: ₱${selectedProduct.buyingPrice}`}
+              value={restockData.buyingPrice}
+              onChange={handleRestockInputChange}
+              step="0.01"
+            />
+            <small className="price-note">Leave blank to keep current price</small>
+
+            <label>Selling Price (Optional)</label>
+            <input 
+              type="number"
+              name="sellingPrice"
+              placeholder={`Current: ₱${selectedProduct.sellingPrice}`}
+              value={restockData.sellingPrice}
+              onChange={handleRestockInputChange}
+              step="0.01"
+            />
+            <small className="price-note">Leave blank to keep current price</small>
+
             <div className="modal-buttons">
-              <button className="discard" onClick={() => setShowRestockModal(false)}>Cancel</button>
+              <button className="discard" onClick={() => {
+                setShowRestockModal(false);
+                setRestockData({ quantity: 0, buyingPrice: '', sellingPrice: '' });
+              }}>Cancel</button>
               <button className="add" onClick={handleRestock}>Save</button>
             </div>
           </div>
@@ -253,20 +301,32 @@ const Inventory = () => {
       {/* History Modal */}
       {showHistoryModal && selectedProduct && (
         <div className="modal-overlay">
-          <div className="add-modal">
-            <h2>History</h2>
+          <div className="add-modal history-modal">
+            <h2>Restock History</h2>
             <p>Product: <strong>{selectedProduct.name}</strong></p>
-            <table style={{ width: '100%', marginTop: '10px' }}>
+            <table className="history-table">
               <thead>
-                <tr><th>Date Restock</th><th>Quantity</th></tr>
+                <tr>
+                  <th>Date</th>
+                  <th>Quantity</th>
+                  <th>Buying Price</th>
+                  <th>Selling Price</th>
+                  <th>Total Expense</th>
+                </tr>
               </thead>
               <tbody>
                 {selectedProduct.history && selectedProduct.history.length > 0 ? (
                   selectedProduct.history.map((h, i) => (
-                    <tr key={i}><td>{h.date}</td><td>{h.qty}</td></tr>
+                    <tr key={i}>
+                      <td>{h.date}</td>
+                      <td>{h.qty}</td>
+                      <td>₱{h.buyingPrice?.toFixed(2) || 'N/A'}</td>
+                      <td>₱{h.sellingPrice?.toFixed(2) || 'N/A'}</td>
+                      <td>₱{((h.qty * h.buyingPrice) || 0).toFixed(2)}</td>
+                    </tr>
                   ))
                 ) : (
-                  <tr><td colSpan="2">No history yet</td></tr>
+                  <tr><td colSpan="5">No restock history yet</td></tr>
                 )}
               </tbody>
             </table>
